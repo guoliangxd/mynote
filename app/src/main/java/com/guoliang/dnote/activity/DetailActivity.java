@@ -1,4 +1,4 @@
-﻿package com.guoliang.dnote.activity;
+package com.guoliang.dnote.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,11 +39,11 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        // 初始化View相关的内容
+        // ��ʼ��View��ص�����
         initView();
-        // 初始化数据
+        // ��ʼ������
         initData();
-        // 初始化事件
+        // ��ʼ���¼�
         initEvent();
     }
 
@@ -60,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
-        // 修改标题的时候的输入框
+        // �޸ı����ʱ��������
         etTitle = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -80,18 +80,18 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始化数据
+     * ��ʼ������
      */
     private void initData() {
-        // 获得传递过来的Intent（可见ListActivity）
+        // ��ô��ݹ�����Intent���ɼ�ListActivity��
         Intent intent = getIntent();
-        // 看看是否带了KEY_EXTRA_NOTE这个参数
-        // 如果带了，这个参数就是全局的笔记列表中这条笔记的INDEX，为正整数，表示这一次的操作是浏览一条已经存在的笔记
-        // 如果不带，设置为-1，表示这一次的操作是新建一个笔记
+        // �����Ƿ����KEY_EXTRA_NOTE�������
+        // ������ˣ������������ȫ�ֵıʼ��б��������ʼǵ�INDEX��Ϊ����������ʾ��һ�εĲ��������һ���Ѿ����ڵıʼ�
+        // �������������Ϊ-1����ʾ��һ�εĲ������½�һ���ʼ�
         int noteIndex = intent.getIntExtra(ListActivity.KEY_EXTRA_NOTE, -1);
-        // 不带参数
+        // ��������
         if (noteIndex == -1) {
-            // 在笔记库中添加一条笔记，笔记标题和内容是默认的
+            // �ڱʼǿ������һ���ʼǣ��ʼǱ����������Ĭ�ϵ�
             note = new Note(getString(R.string.edit_title), getString(R.string.edit_content));
             tvContent.setText(note.getContent());
             etContent.setText(note.getContent());
@@ -107,33 +107,33 @@ public class DetailActivity extends AppCompatActivity {
     private void initEvent() {
         switchEditMode();
 
-        // 点击标题的事件
+        // ���������¼�
         collapsingToolbarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 如果不是编辑模式，不做任何事情
+                // ������Ǳ༭ģʽ�������κ�����
                 if (!editMode) {
                     return;
                 }
-                // 给对话框里的EditText设置内容为现在的标题内容
+                // ���Ի������EditText��������Ϊ���ڵı�������
                 etTitle.setText(note.getTitle());
-                // 显示对话框（dialog）
+                // ��ʾ�Ի���dialog��
                 dialog.show();
             }
         });
     }
 
     /**
-     * 切换 “查看模式” 和 “编辑模式”
+     * �л� ���鿴ģʽ�� �� ���༭ģʽ��
      */
     private void switchEditMode() {
         editMode = !editMode;
-        // 切换显示和隐藏状态
+        // �л���ʾ������״̬
         etContent.setVisibility(editMode ? View.VISIBLE : View.GONE);
         tvContent.setVisibility(editMode ? View.GONE : View.VISIBLE);
-        // 切换按钮的图标
+        // �л���ť��ͼ��
         fab.setImageResource(editMode ? android.R.drawable.ic_menu_save : android.R.drawable.ic_menu_edit);
-        // 如果是编辑模式的话，点击按钮先保存笔记的标题和内容再转换模式
+        // ����Ǳ༭ģʽ�Ļ��������ť�ȱ���ʼǵı����������ת��ģʽ
         if (editMode) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,7 +158,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        // 如果是查看模式，点击按钮只切换模式
+        // ����ǲ鿴ģʽ�������ťֻ�л�ģʽ
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,10 +168,10 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /**
-     * 设置点击菜单的事件
+     * ���õ���˵����¼�
      *
-     * @param item 点击的菜单 Item
-     * @return 是否消费这个点击事件
+     * @param item ����Ĳ˵� Item
+     * @return �Ƿ������������¼�
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
